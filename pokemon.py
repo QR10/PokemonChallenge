@@ -57,8 +57,7 @@ def generate_grid(x, y) :
         for i in range(y*2+1):
             column.append(1)
         world.append(column)
-    
-    print(len(world))
+
     # Ash starts here and gets starting Pokemon
     world[x][y] = 0
         

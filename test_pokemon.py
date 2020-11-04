@@ -1,5 +1,5 @@
 import pytest
-from pokemon import get_grid_size, generate_grid
+from pokemon import get_grid_size, generate_grid, catch_pokemon, solve
 
 def test_get_grid_size_wrong_input() :
     x, y = get_grid_size("QwRtYuIp+-£$&£&")
@@ -24,3 +24,17 @@ def test_generate_grid_out_of_range_y() :
     with pytest.raises(IndexError):
         grid = generate_grid(0,20)
         grid[0][41]
+        
+def test_catch_pokemon_pokemon_found() :
+    grid = generate_grid(2,2)
+    assert catch_pokemon(grid, 0, 0) == 1
+    
+def test_catch_pokemon_pokemon_found_and_caught() :
+    grid = generate_grid(2,2)
+    catch_pokemon(grid, 0, 0)
+    assert catch_pokemon(grid, 0, 0) == 0
+
+def test_catch_pokemon_pokemon_not_found() :
+    grid = generate_grid(4,4)
+    assert catch_pokemon(grid, 4, 4) == 0
+    1
