@@ -57,7 +57,8 @@ def generate_grid(x, y) :
         for i in range(y*2+1):
             column.append(1)
         world.append(column)
-        
+    
+    print(len(world))
     # Ash starts here and gets starting Pokemon
     world[x][y] = 0
         
@@ -111,6 +112,11 @@ def solve(ash_movement_sequence):
             pokemon_count += catch_pokemon(grid_of_houses, x, y)
     
     print(f"Ash caught {pokemon_count} pokemons")
+
+def main():
+    user_move_sequence = input("Enter Ash's movement sequence:")
+    solve(user_move_sequence)
+
+if __name__ == "__main__":
+    main()
     
-user_move_sequence = input("Enter Ash's movement sequence:")
-solve(user_move_sequence)
