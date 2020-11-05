@@ -78,7 +78,7 @@ def catch_a_pokemon(grid_of_houses, x, y):
     else:
         return 0
 
-def count_pokemons_caught(list_of_ash_movements, grid_of_houses, x_axis_pos,
+def count_pokemons_caught(ash_movement_sequence, grid_of_houses, x_axis_pos,
                               y_axis_pos) :
     """ Counts the number of pokemons caught by ash in a given move sequence
     and returns the count as an integer
@@ -88,6 +88,8 @@ def count_pokemons_caught(list_of_ash_movements, grid_of_houses, x_axis_pos,
     Modifies: Nothing
     Returns: A count of pokemons caught, as an integer 
     """    
+    list_of_ash_movements = list(ash_movement_sequence.lower())[::-1]
+    
     # Starting house pokemon acquired
     pokemon_caught_count = 1
     
@@ -123,18 +125,16 @@ def play_pokemon(ash_movement_sequence):
     """
     x_axis_position, y_axis_position = get_grid_size(ash_movement_sequence)
     
-    list_of_ash_movements = list(ash_movement_sequence.lower())[::-1]
-    
     grid_of_houses = generate_grid(x_axis_position, y_axis_position) 
 
-    pokemons_caught_count = count_pokemons_caught(list_of_ash_movements,
+    pokemons_caught_count = count_pokemons_caught(ash_movement_sequence,
                                                grid_of_houses, x_axis_position,
                                                  y_axis_position)
     
-    print(f"Ash caught {pokemons_caught_count} pokemons")
+    print(f"O Ash apanhou {pokemons_caught_count} pokémons!")
 
 def main():
-    user_move_sequence = input("Enter Ash's movement sequence:")
+    user_move_sequence = input("Insira a sequência de movimentos do ash: ")
     play_pokemon(user_move_sequence)
 
 if __name__ == "__main__":
