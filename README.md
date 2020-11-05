@@ -6,7 +6,7 @@ Given that each house as only 1 pokemon to catch, if Ash catches the pokemon and
 Ash always starts in one house and catches it's first pokemon, he then moves according to the sequence. 
 
 
-![Pokemon](Media/pokemon.gif)
+![Pokemon](media/pokemon.gif)
 
 
 # Requirements
@@ -57,4 +57,4 @@ pip install -U pytest
 ```
 pytest
 ```
-![Pytest](Media/pytest.png)
+![Pytest](media/pytest.png)
