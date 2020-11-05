@@ -10,37 +10,37 @@ def get_grid_size(ash_movement_sequence):
     
     list_of_ash_movements = list(ash_movement_sequence.lower())[::-1]
     
-    south_moves = 0
-    north_moves = 0
-    east_moves = 0
-    west_moves = 0
+    south_movements_count = 0
+    north_movements_count = 0
+    east_movements_count = 0
+    west_movements_count = 0
     
     while list_of_ash_movements:
-        ash_movement = list_of_ash_movements.pop()
+        move_ash = list_of_ash_movements.pop()
     
-        if ash_movement == "s":
-            south_moves += 1
-        elif ash_movement == "n":
-            north_moves += 1
-        elif ash_movement == "e":
-            east_moves +=1
-        elif ash_movement == "o":
-            west_moves += 1
+        if move_ash == "s":
+            south_movements_count += 1
+        elif move_ash == "n":
+            north_movements_count += 1
+        elif move_ash == "e":
+            east_movements_count +=1
+        elif move_ash == "o":
+            west_movements_count += 1
         else:
-            print(f"{ash_movement} is not a valid move!")
+            print(f"{move_ash} is not a valid move!")
     
     # Guardar maior numero de movimentos numa direcao
-    if east_moves > west_moves:
-        x = east_moves
+    if east_movements_count > west_movements_count:
+        x_axis_movements = east_movements_count
     else:
-        x = west_moves
+        x_axis_movements = west_movements_count
         
-    if south_moves > north_moves:
-        y = south_moves
+    if south_movements_count > north_movements_count:
+        y_axis_movements = south_movements_count
     else:
-        y = north_moves
+        y_axis_movements = north_movements_count
     
-    return x, y
+    return x_axis_movements, y_axis_movements
     
 def generate_grid(x, y) :
     """Returns a grid full of pokemons to catch, with the exception of the
@@ -63,7 +63,7 @@ def generate_grid(x, y) :
         
     return world
 
-def catch_pokemon(grid_of_houses, x, y):
+def catch_a_pokemon(grid_of_houses, x, y):
     """ Returns an integer with the number of pokemons caught in Ash's
     current position.
     
@@ -78,7 +78,42 @@ def catch_pokemon(grid_of_houses, x, y):
     else:
         return 0
 
-def solve(ash_movement_sequence):
+def count_pokemons_caught(list_of_ash_movements, grid_of_houses, x_axis_pos,
+                              y_axis_pos) :
+    """ Counts the number of pokemons caught by ash in a given move sequence
+    and returns the count as an integer
+    
+    Expects: A string with a list of moves, a grid filled with pokemons to
+        catch, ash's x-axis and y-axis starting position'
+    Modifies: Nothing
+    Returns: A count of pokemons caught, as an integer 
+    """    
+    # Starting house pokemon acquired
+    pokemon_caught_count = 1
+    
+    while list_of_ash_movements:
+        move_ash = list_of_ash_movements.pop()
+    
+        if move_ash == "s":
+            y_axis_pos = y_axis_pos+1
+            pokemon_caught_count += catch_a_pokemon(grid_of_houses, 
+                                                      x_axis_pos, y_axis_pos)
+        elif move_ash == "n":
+            y_axis_pos = y_axis_pos-1
+            pokemon_caught_count += catch_a_pokemon(grid_of_houses,
+                                                      x_axis_pos, y_axis_pos)
+        elif move_ash == "e":
+            x_axis_pos = x_axis_pos+1
+            pokemon_caught_count += catch_a_pokemon(grid_of_houses,
+                                                      x_axis_pos, y_axis_pos)
+        elif move_ash == "o":
+            x_axis_pos = x_axis_pos-1
+            pokemon_caught_count += catch_a_pokemon(grid_of_houses,
+                                                      x_axis_pos, y_axis_pos)
+    
+    return pokemon_caught_count
+
+def play_pokemon(ash_movement_sequence):
     """Prints the amount of pokemons caught by Ash in a user specified 
     movement sequence.
     
@@ -86,35 +121,21 @@ def solve(ash_movement_sequence):
     Modifies: Nothing
     Returns: Nothing
     """
-    x, y = get_grid_size(ash_movement_sequence)
+    x_axis_position, y_axis_position = get_grid_size(ash_movement_sequence)
     
     list_of_ash_movements = list(ash_movement_sequence.lower())[::-1]
     
-    grid_of_houses = generate_grid(x, y) 
+    grid_of_houses = generate_grid(x_axis_position, y_axis_position) 
 
-    pokemon_count = 1
+    pokemons_caught_count = count_pokemons_caught(list_of_ash_movements,
+                                               grid_of_houses, x_axis_position,
+                                                 y_axis_position)
     
-    while list_of_ash_movements:
-        ash_movement = list_of_ash_movements.pop()
-    
-        if ash_movement == "s":
-            y = y+1
-            pokemon_count += catch_pokemon(grid_of_houses, x, y)
-        elif ash_movement == "n":
-            y = y-1
-            pokemon_count += catch_pokemon(grid_of_houses, x, y)
-        elif ash_movement == "e":
-            x = x+1
-            pokemon_count += catch_pokemon(grid_of_houses, x, y)
-        elif ash_movement == "o":
-            x = x-1
-            pokemon_count += catch_pokemon(grid_of_houses, x, y)
-    
-    print(f"Ash caught {pokemon_count} pokemons")
+    print(f"Ash caught {pokemons_caught_count} pokemons")
 
 def main():
     user_move_sequence = input("Enter Ash's movement sequence:")
-    solve(user_move_sequence)
+    play_pokemon(user_move_sequence)
 
 if __name__ == "__main__":
     main()
