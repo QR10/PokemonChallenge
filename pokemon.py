@@ -27,7 +27,7 @@ def get_grid_size(ash_movement_sequence):
         elif move_ash == "o":
             west_movements_count += 1
         else:
-            print(f"{move_ash} is not a valid move!")
+            print(f"{move_ash} não é um movimento valido!")
     
     # Guardar maior numero de movimentos numa direcao
     if east_movements_count > west_movements_count:
