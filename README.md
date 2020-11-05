@@ -3,6 +3,7 @@
 Given a sequence of movements the script calculates the number of pokemons caught by Ash on that journey.
 
 Given that each house as only 1 pokemon to catch, if Ash catches the pokemon and comes back to that same house, there won't be a pokemon there anymore.
+
 Ash always starts in one house and catches it's first pokemon, he then moves according to the sequence. 
 
 
@@ -11,7 +12,7 @@ Ash always starts in one house and catches it's first pokemon, he then moves acc
 
 # Requirements
 
-## To run this code follow the following steps:
+## To run this code the following steps are required:
 
 ### Have Python 3 installed on your machine
 
@@ -51,7 +52,7 @@ python pokemon.py
 ```
 pip install -U pytest
 ```
-[For more Infor refer to...](https://docs.pytest.org/en/stable/getting-started.html)
+[For more Information refer to...](https://docs.pytest.org/en/stable/getting-started.html)
 
 #### Open a terminal/cmd in the test script location and execute the following line:
 ```
